@@ -1,0 +1,147 @@
+# Yet Another MarkUp Language
+# YMAL Ain't Markup Language
+# YMAL is Data Serialization Language
+# It consists of key-value pair
+# case sensative
+# indentation is important
+
+"Name" : "Abhishek"
+"Roll_no" : 23
+4 : "status ok"
+
+--- # this is document seperator
+
+# List
+
+- Abhishek
+- Vivek
+- Golu
+- Ankit
+- Pooja
+- Sivam
+
+---
+
+cities: 
+  - New Delhi
+  - Mumbai
+  - Darbhanga
+  - Chhapra
+  - Siwan
+
+# OR we can write it as follow
+cities2: [New Delhi,Mumbai,Darbhanga,Chhapra,Siwan]
+#Or
+{Name : "Abhishek",Roll_no : 23,4 : "status ok"}
+
+
+# string representation
+Name: Abhishek kumar
+Fruit: 'Apple'
+Job: "SDE" 
+
+#
+
+Bio: |
+Hello,
+How are you
+
+
+Message: > 
+this will
+treated as single line 
+but writen in multiple line
+
+# boolean type
+boolValue: No # n,N,false,False FALSE
+boolYesValue: Yes # y,Y,True,true,TRUE
+
+# specify the type explicitly similarly in binary,octal,hexadecimal etc
+zero: !!int 0
+boolValue: !!bool true 
+infinite: !!float .inf # infinite
+not a number : .nan #not a number
+nullvalue: !!null NUll # null/ NULL ~
+~: this a null key example
+
+
+list: !!seq
+  - New Delhi
+  - Mumbai
+  - Darbhanga
+  - Chhapra
+  - Siwan
+
+sparse: !!seq
+  - New Delhi
+  -  # by default this is null
+  - Darbhanga
+  - null
+  - Siwan
+
+
+# map -> !!map
+name: Abhishek
+Roll: 
+  age: 21
+  job: student
+# OR
+name: Abhishek
+Roll: {age: 21,job: student}
+
+
+
+
+
+# pairs
+pair Example: !!pair
+  - job: Student
+  - job: Teacher
+
+#OR
+pair Example: !!pair [job: Student,job: Teacher]
+
+names: !!set 
+  ? Abhishek
+  ? Vivek
+  ? Ankit
+
+
+
+# Dictionary !!omap
+People: !!omap
+  -Abhi:
+    name: Abhishek
+    roll: 21
+  -Vivek:
+    name: Vivek
+    roll: 31
+
+
+
+# reusing some proporties using anckors
+likings: &likes # which is to reuse 
+  fav fruit: mango 
+  dislikes: grapes
+
+person1: 
+  name: Abhishek
+  <<: *likes # where to reuse it
+
+person2: 
+  name: Vivek
+  <<: *likes
+
+person3: 
+  name: Ankit
+  <<: *likes
+
+person4: 
+  name: Prince
+  <<: *likes
+  dislikes: orange # overrided in copied value
+
+
+  
+# we can nesting of the every data types 
+... # document end representation
