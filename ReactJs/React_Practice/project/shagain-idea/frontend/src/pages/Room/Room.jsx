@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useWebRTC } from '../../hooks/useWebRTC';
-import { useParams, useHistory } from 'react-router-dom';
-import { getRoom } from '../../http';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useWebRTC } from "../../hooks/useWebRTC";
+import { useParams, useHistory } from "react-router-dom";
+import { getRoom } from "../../http";
 
-import styles from './Room.module.css';
+import styles from "./Room.module.css";
 
 const Room = () => {
     const user = useSelector((state) => state.auth.user);
@@ -22,7 +22,6 @@ const Room = () => {
             const { data } = await getRoom(roomId);
             setRoom((prev) => data);
         };
- 
         fetchRoom();
     }, [roomId]);
 
@@ -31,7 +30,7 @@ const Room = () => {
     }, [isMuted]);
 
     const handManualLeave = () => {
-        history.push('/rooms');
+        history.push("/rooms");
     };
 
     const handleMuteClick = (clientId) => {

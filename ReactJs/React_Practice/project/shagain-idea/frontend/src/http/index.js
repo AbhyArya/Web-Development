@@ -1,23 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
     baseURL: "http://localhost:5500",
     withCredentials: true,
     headers: {
-        'Content-type': 'application/json',
-        Accept: 'application/json',
+        "Content-type": "application/json",
+        Accept: "application/json",
     },
 });
 
 // List of all the endpoints
-export const sendOtp = (data) => api.post('/api/send-otp', data);
-export const sendOtpE = (data) => api.post('/api/send-otpE', data);
-export const verifyOtp = (data) => api.post('/api/verify-otp', data);
-export const verifyOtpE = (data) => api.post('/api/verify-otpE', data);
-export const activate = (data) => api.post('/api/activate', data);
-export const logout = () => api.post('/api/logout');
-export const createRoom = (data) => api.post('/api/rooms', data);
-export const getAllRooms = () => api.get('/api/rooms');
+export const sendOtp = (data) => api.post("/api/send-otp", data);
+export const sendOtpE = (data) => api.post("/api/send-otpE", data);
+export const verifyOtp = (data) => api.post("/api/verify-otp", data);
+export const verifyOtpE = (data) => api.post("/api/verify-otpE", data);
+export const activate = (data) => api.post("/api/activate", data);
+export const logout = () => api.post("/api/logout");
+export const createRoom = (data) => api.post("/api/rooms", data);
+export const getAllRooms = () => api.get("/api/rooms");
 export const getRoom = (roomId) => api.get(`/api/rooms/${roomId}`);
 
 // Interceptors
@@ -27,7 +27,11 @@ api.interceptors.response.use(
     },
     async (error) => {
         const originalRequest = error.config;
-        if ( error.response?.status === 401 &&originalRequest && !originalRequest._isRetry) {
+        if (
+            error.response?.status === 401 &&
+            originalRequest &&
+            !originalRequest._isRetry
+        ) {
             originalRequest.isRetry = true;
             try {
                 await axios.get(

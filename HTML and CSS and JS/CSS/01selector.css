@@ -53,8 +53,6 @@ section.my-article>h2{
     color: red;
 }
 
-
-
 /* adjacent sibling combinator */
 h1+p{
     background-color: #fff;

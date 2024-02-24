@@ -1,18 +1,18 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const server = require('http').createServer(app);
-const DbConnect = require('./database');
-const router = require('./routes');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const server = require("http").createServer(app);
+const DbConnect = require("./database");
+const router = require("./routes");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
-const ACTIONS = require('./actions');
+const ACTIONS = require("./actions");
 
-const io = require('socket.io')(server, {
+const io = require("socket.io")(server, {
     cors: {
         origin: process.env.FRONT_URL,
-        methods: ['GET', 'POST'],
+        methods: ["GET", "POST"],
     },
 });
 
@@ -22,22 +22,22 @@ const corsOption = {
     origin: process.env.FRONT_URL,
 };
 app.use(cors(corsOption));
-app.use('/storage', express.static('storage'));
+app.use("/storage", express.static("storage"));
 
 const PORT = process.env.PORT || 5500;
 DbConnect();
-app.use(express.json({ limit: '8mb' }));
+app.use(express.json({ limit: "8mb" })); 
 app.use(router);
 
-app.get('/', (req, res) => {
-    res.send('Hello from express Js');
-});
+app.get("/", (req, res) => { 
+    res.send("Hello from express Js"); 
+}); 
 
 // Sockets
 const socketUserMap = {};
 
-io.on('connection', (socket) => {
-    console.log('New connection', socket.id);
+io.on("connection", (socket) => {
+    console.log("New connection", socket.id);
     socket.on(ACTIONS.JOIN, ({ roomId, user }) => {
         socketUserMap[socket.id] = user;
         const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
@@ -94,7 +94,7 @@ io.on('connection', (socket) => {
         const clients = Array.from(io.sockets.adapter.rooms.get(roomId) || []);
         clients.forEach((clientId) => {
             if (clientId !== socket.id) {
-                console.log('mute info');
+                console.log("mute info");
                 io.to(clientId).emit(ACTIONS.MUTE_INFO, {
                     userId,
                     isMute,
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
 
     socket.on(ACTIONS.LEAVE, leaveRoom);
 
-    socket.on('disconnecting', leaveRoom);
+    socket.on("disconnecting", leaveRoom);
 });
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

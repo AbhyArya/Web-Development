@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { ACTIONS } from '../actions';
-import socketInit from '../socket';
-import freeice from 'freeice';
-import { useStateWithCallback } from './useStateWithCallback';
+import { useEffect, useState, useRef, useCallback } from "react";
+import { ACTIONS } from "../actions";
+import socketInit from "../socket";
+import freeice from "freeice";
+import { useStateWithCallback } from "./useStateWithCallback";
 
 export const useWebRTC = (roomId, user) => {
     const [clients, setClients] = useStateWithCallback([]);
@@ -180,7 +180,7 @@ export const useWebRTC = (roomId, user) => {
                 );
 
                 // If session descrition is offer then create an answer
-                if (remoteSessionDescription.type === 'offer') {
+                if (remoteSessionDescription.type === "offer") {
                     const connection = connections.current[peerId];
 
                     const answer = await connection.createAnswer();
